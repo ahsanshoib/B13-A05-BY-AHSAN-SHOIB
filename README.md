@@ -26,5 +26,4 @@ Answer : Arrow function is a modern syntax, used to declaring function more easi
 
 5. What are template literals?
 
-
 Answer : Template literals are strings written in JavaScript using backticks (`), where variables or expressions can be easily embedded.
