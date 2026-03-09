@@ -16,9 +16,9 @@ Answer : Spread operator is an operator of javascript, which is used for spreadi
 
 Answer : Map(), filter(), and forEach are the array methods of javascript. Those methods are used for function on every element of the array.
 
-Map() : Returns new arrays by changing the old arrays.
-filter() : Returns some new array according to the conditions. 
-forEach : Functions on every element, but does not return any array anymore.
+#1 Map() : Returns new arrays by changing the old arrays.
+#2 filter() : Returns some new array according to the conditions. 
+#3 forEach : Functions on every element, but does not return any array anymore.
 
 4. What is an arrow function?
 
