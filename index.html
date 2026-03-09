@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub Issues Tracker</title>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<link rel="stylesheet" href="./style.css"> 
+</head>
+
+<body class="bg-[#F6F7F9] font-sans">
+
+<div id="login-page" class="min-h-screen flex items-center justify-center p-4">
+<div class="bg-white p-10 rounded-xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] w-full max-w-md text-center border border-gray-100/50">
+<img src="./assets/github-logo.png" alt="Github Logo" class="mx-auto mb-6 w-24 h-24">
+<h1 class="text-3xl font-bold text-[#111827] mb-2">GitHub Issues Tracker</h1>
+<p class="text-[#6B7280] text-sm mb-8 font-medium">Sign in to manage your issues</p>
+            
+<form class="text-left">
+
+<div class="mb-5">
+<label class="block text-sm font-semibold text-[#374151] mb-1.5">Username</label>
+<input type="text" id="username" placeholder="Enter Username" class="w-full border border-gray-200 p-3 rounded-lg ">
+<span class="text-[12px] font-semibold text-[#5C2DFF]">Default: admin</span>
+</div>
+
+<div class="mb-8">
+<label class="block text-sm font-semibold text-[#374151] mb-1.5">Password</label>
+<input type="password" id="password" placeholder="Enter Password" class="w-full border border-gray-200 p-3 rounded-lg ">
+<span class="text-[12px] font-semibold text-[#5C2DFF]">Default: admin123</span>
+</div>
+
+<button id="login-btn" type="button" class="w-full bg-[#5C2DFF] text-white py-3 rounded-lg font-semibold ">Sign In</button>
+
+</form>
+            
+<div class="mt-8 relative mb-8">
+<div class="relative flex justify-center"><span class="bg-white px-3 text-xs font-bold text-[#9CA3AF]">OR</span></div>
+</div>
+
+<div class="bg-[#F8F9FB] p-6 rounded-lg text-sm text-center">
+<p class="text-[#6B7280] text-xs font-semibold mb-3">Demo Credentials:</p>
+<p class="text-[#1F2937] font-bold">Username: admin <br> Password: admin123</p>
+</div>
+
+</div>
+</div>
+
+<div id="dashboard-page" class="hidden min-h-screen bg-gray-50">
+<nav class="bg-white border-b py-3 px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-2">
+<img src="./assets/github-logo.png" class="w-8 h-8">
+<span class="font-bold text-xl text-[#111827]">GitHub Issues Tracker</span>
+</div>
+
+<div class="flex items-center gap-3 w-full md:w-auto">
+<input type="text" id="search-input" placeholder="Search issues..." class="border border-gray-200 rounded-md px-4 py-2 text-sm w-full md:w-80">
+
+<button class="bg-[#5C2DFF] text-white px-5 py-2 rounded-md font-semibold text-sm hover:bg-[#4E24DD] whitespace-nowrap">+ New Issue</button>
+</div>
+</nav>
+
+<main class="max-w-7xl mx-auto p-6 space-y-6">
+<div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex gap-3">
+                
+<button data-tab="all" class="tab-btn active-tab px-8 py-3 rounded-lg text-sm font-bold transition-all">All</button>
+<button data-tab="open" class="tab-btn px-8 py-3 rounded-lg text-sm font-bold bg-white text-gray-500 border border-gray-100">Open</button>
+<button data-tab="closed" class="tab-btn px-8 py-3 rounded-lg text-sm font-bold bg-white text-gray-500 border border-gray-100">Closed</button>
+
+</div>
+
+<div class="bg-white px-6 py-5 rounded-t-2xl border-x border-t border-gray-100 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="bg-[#F3E8FF] p-3 rounded-full"><img src="./assets/Aperture.png" class="w-7 h-7"></div>
+
+        
+<div>
+<h2 class="text-2xl font-bold text-[#111827]"><span id="issue-count">0</span> Issues</h2>
+<p class="text-sm text-[#9CA3AF] font-medium">Track and manage your project issues</p>
+</div>
+</div>
+            
+<div class="hidden sm:flex items-center gap-6">
+<span class="flex items-center gap-2 text-sm font-bold text-[#374151]"><span class="w-3 h-3 rounded-full bg-[#10B981]"></span> Open</span>
+<span class="flex items-center gap-2 text-sm font-bold text-[#374151]"><span class="w-3 h-3 rounded-full bg-[#A855F7]"></span> Closed</span>
+</div>
+</div>
+
+<div id="issues-container" class="bg-white border-x border-b border-gray-100 rounded-b-2xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
+<div id="loader" class="col-span-full py-20 text-center"><div class="animate-spin rounded-full h-8 w-8 border-4 border-indigo-500 border-t-transparent inline-block">
+</div>
+</div>
+</div>
+</main>
+</div>
+
+<div id="modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-md p-4">
+<div class="bg-white rounded-2xl max-w-2xl w-full p-8 shadow-2xl animate-in zoom-in duration-200">
+<h2 id="modal-title" class="text-3xl font-extrabold text-[#111827] mb-4"></h2>
+<div class="flex items-center gap-3 mb-6 text-sm">
+<span id="modal-status-badge" class="px-4 py-1.5 rounded-full font-bold text-white"></span>
+<span class="text-gray-500 font-medium">Opened by <b id="modal-author" class="text-gray-800"></b> on <span id="modal-date">
+</span>
+</span>
+</div>
+
+<div id="modal-labels" class="flex flex-wrap gap-2 mb-8"></div>
+<p id="modal-desc" class="text-gray-600 mb-10 border-l-4 border-gray-100 pl-4"></p>
+<div class="bg-gray-50 rounded-xl p-6 flex justify-between items-center">
+<div><span class="text-gray-400 text-xs font-bold block mb-1 uppercase">Assignee:</span> <span id="modal-assignee" class="text-lg font-extrabold text-[#111827]">
+</span>
+</div>
+                
+<div>
+<span class="text-gray-400 text-xs font-bold block mb-1 uppercase text-right">Priority:</span>
+<span id="modal-priority-badge" class="px-6 py-2 rounded-lg text-sm font-black uppercase"></span>
+</div>
+</div>
+
+<div class="mt-8 flex justify-end"><button id="close-modal" class="bg-[#5C2DFF] text-white px-10 py-3 rounded-xl font-bold hover:bg-[#4E24DD]">Close</button>
+</div>
+</div>
+</div>
+
+<script src="./script.js"></script>
+
+</body>
+
+</html>
