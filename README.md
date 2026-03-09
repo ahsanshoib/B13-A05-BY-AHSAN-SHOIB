@@ -2,9 +2,11 @@
 
 Answer : var, let and const, all of them are keywords of javascript, which are used to declare variables. 
 
-Var : The same variable can be changed for several times.
-Let : The values can be changed after declaring the variables. 
-Const : The values can't be changed after declaring the variables.
+Difference between these three is written below,
+
+#1 Var : The same variable can be changed for several times.
+#2 Let : The values can be changed after declaring the variables. 
+#3 Const : The values can't be changed after declaring the variables.
 
 2. What is the spread operator (...)?
 
